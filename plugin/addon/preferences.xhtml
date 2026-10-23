@@ -1,0 +1,28 @@
+<vbox id="za-prefpane" xmlns:html="http://www.w3.org/1999/xhtml" onload="Zotero.ZoteroArchiver.refreshLibraryList(this.ownerDocument)">
+  <groupbox>
+    <label value="归档库位置"/>
+    <hbox align="center">
+      <html:input id="za-archive-root" type="text" flex="1"
+        preference="extensions.zotero-archiver.archiveRoot"></html:input>
+      <button label="浏览..." oncommand="Zotero.ZoteroArchiver.browseArchiveRoot(this)"/>
+    </hbox>
+  </groupbox>
+  <groupbox>
+    <label value="文库"/>
+    <label id="za-current-label" value="当前库：..."/>
+    <vbox id="za-library-list" align="start" style="max-height: 180px; overflow: auto;"/>
+    <button label="批量删除已归档论文" oncommand="Zotero.ZoteroArchiver.eraseAllArchived()"/>
+  </groupbox>
+  <groupbox>
+    <label value="定期备份"/>
+    <hbox align="center">
+      <checkbox id="za-ab-enabled" label="启用定期备份"/>
+      <label value="每隔"/>
+      <html:input id="za-ab-days" type="text" size="4"></html:input>
+      <label value="天，在"/>
+      <html:input id="za-ab-hour" type="text" size="2"></html:input>
+      <label value="点"/>
+    </hbox>
+    <label value="存档自动命名「备份 YYYY-MM-DD」，仅在主库生效"/>
+  </groupbox>
+</vbox>
