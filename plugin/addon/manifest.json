@@ -1,0 +1,20 @@
+{
+  "manifest_version": 2,
+  "name": "Zotero Archiver",
+  "version": "1.0.0",
+  "description": "归档论文到独立命名归档库（完整保留标签/笔记/附件），支持定期自动归档备份、切换文库、恢复回主库、批量删除已归档论文。",
+  "author": "Aspray166",
+  "homepage_url": "https://github.com/Aspray166/zotero-archiver",
+  "icons": {
+    "48": "icon.svg",
+    "96": "icon.svg"
+  },
+  "applications": {
+    "zotero": {
+      "id": "zotero-archiver@example.com",
+      "update_url": "https://raw.githubusercontent.com/Aspray166/zotero-archiver/main/update.json",
+      "strict_min_version": "6.999",
+      "strict_max_version": "10.*"
+    }
+  }
+}
