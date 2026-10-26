@@ -101,6 +101,8 @@ var ZoteroArchiver = (function () {
 
         _onItemMenuShowing(e) {
             var menu = e.target;
+            // 只处理 zotero-itemmenu 本身；popupshowing 会冒泡，其他插件子菜单打开时 e.target 是那个子菜单
+            if (!menu || menu.id !== "zotero-itemmenu") return;
             var doc = menu.ownerDocument;
             this._clearZaItems(menu);
             var self = this;
@@ -656,11 +658,17 @@ var ZoteroArchiver = (function () {
         async _deleteLinkedFiles(items) {
             for (var i = 0; i < items.length; i++) {
                 try {
-                    var atts = items[i].getAttachments();
-                    for (var a = 0; a < atts.length; a++) {
-                        if (atts[a].attachmentLinkMode === 2) {
-                            var p = atts[a].getFilePath();
-                            if (p && await this._exists(p)) await this._remove(p);
+                    // getAttachments() 返回的是条目 ID 而非对象，这里直接查附件表
+                    var rows = await Zotero.DB.queryAsync(
+                        "SELECT linkMode, path FROM itemAttachments WHERE parentItemID=?",
+                        [items[i].id]
+                    );
+                    for (var a = 0; a < rows.length; a++) {
+                        var r = rows[a];
+                        if (r.linkMode === 2 && r.path && r.path.indexOf("attachments:") === 0) {
+                            var rel = r.path.substring("attachments:".length);
+                            var full = this._baseAttachmentDir() + "/" + rel;
+                            if (await this._exists(full)) await this._remove(full);
                         }
                     }
                 } catch (e) { /* ignore */ }
