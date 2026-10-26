@@ -3,6 +3,16 @@
     "zotero-archiver@example.com": {
       "updates": [
         {
+          "version": "1.0.1",
+          "update_link": "https://github.com/Aspray166/zotero-archiver/releases/download/v1.0.1/zotero-archiver.xpi",
+          "applications": {
+            "zotero": {
+              "strict_min_version": "6.999",
+              "strict_max_version": "10.*"
+            }
+          }
+        },
+        {
           "version": "1.0.0",
           "update_link": "https://github.com/Aspray166/zotero-archiver/releases/download/v1.0.0/zotero-archiver.xpi",
           "applications": {
